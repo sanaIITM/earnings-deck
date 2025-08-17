@@ -1,0 +1,16 @@
+{
+  "name": "earnings-deck",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "start": "npx http-server -c-1 -p 8000",
+    "deploy": "gh-pages -d ."
+  },
+  "dependencies": {
+    "reveal.js": "^4.5.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "http-server": "^14.1.1"
+  }
+}

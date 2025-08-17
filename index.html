@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q2 Earnings — Interactive RevealJS Deck</title>
+
+    <!-- RevealJS core & theme (CDN, v4.5.0) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
+    <!-- Code highlighting theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+
+    <link rel="stylesheet" href="css/custom.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- TITLE -->
+        <section>
+          <h1>Quarterly Earnings Report</h1>
+          <p>Modern, interactive stakeholder presentation</p>
+          <p style="font-size: 0.9em">Prepared by: <strong>Technical Consultant</strong></p>
+          <p style="font-size: 0.9em">Contact: <strong>24f1000823@ds.study.iitm.ac.in</strong></p>
+          <aside class="notes">
+            Welcome the audience. Mention this is a live, interactive deck built with RevealJS.
+            We'll cover highlights, drivers, and an interactive demo.
+          </aside>
+        </section>
+
+        <!-- MARKDOWN SLIDE (REQUIRED) -->
+        <section data-markdown>
+          <textarea data-template>
+## Headline Results (Markdown)
+
+- **Revenue:** $4.2B *(+8% YoY)*
+- **Operating Margin:** 23.4%
+- **EPS (Diluted):** $1.42
+- **Free Cash Flow:** $680M
+
+---
+
+### Guidance (FY 2025)
+
+- Revenue growth: **6–8%**
+- Opex discipline: **OpEx &lt; 40% Gross Profit**
+- Capital allocation: **R&amp;D first**, then dividends/buybacks
+- Risk watchlist: FX, rate cuts, portfolio concentration
+
+_This slide is written entirely in Markdown._
+          </textarea>
+        </section>
+
+        <!-- FRAGMENTS (ANIMATED ELEMENTS) -->
+        <section>
+          <h2>Growth Drivers</h2>
+          <ul>
+            <li class="fragment">Payments volume recovery in APAC</li>
+            <li class="fragment">Cloud migration savings (run-rate)</li>
+            <li class="fragment fade-up">AI-driven underwriting win rate</li>
+            <li class="fragment highlight-current-blue">Operating leverage in Platform</li>
+          </ul>
+          <aside class="notes">
+            Reveal each driver. Call out sustainability and sensitivity to macro changes.
+          </aside>
+        </section>
+
+        <!-- CODE WITH SYNTAX HIGHLIGHTING -->
+        <section>
+<pre><code class="language-sql" data-line-numbers="1-6|8-14">
+-- Revenue breakdown query (sample)
+WITH rev AS (
+  SELECT region, product, SUM(amount) AS revenue
+  FROM ledger
+  WHERE quarter = '2025-Q2'
+  GROUP BY region, product
+)
+SELECT region, SUM(revenue) AS total_revenue
+FROM rev
+GROUP BY region
+ORDER BY total_revenue DESC;
+
+-- Tip: switch 'quarter' to compare YoY
+</code></pre>
+          <aside class="notes">
+            Demo code highlighting & line focus. Explain that the real query would run in the data warehouse.
+          </aside>
+        </section>
+
+        <!-- MATH (FINANCIAL FORMULAS) -->
+        <section>
+          <h2>Valuation & Return</h2>
+          <p>Net Present Value (NPV):</p>
+          <p>\[ \text{NPV} = \sum_{t=1}^{T} \frac{CF_t}{(1+r)^t} - C_0 \]</p>
+          <p>Capital Asset Pricing Model (CAPM):</p>
+          <p>\[ E(R_i) = R_f + \beta_i\,(E(R_m) - R_f) \]</p>
+          <aside class="notes">
+            Use NPV for project decisions; CAPM informs discount rates. Keep r consistent with risk regime.
+          </aside>
+        </section>
+
+        <!-- SIMPLE DATA VIS DEMO (OPTIONAL) -->
+        <section id="chart-slide">
+          <h2>Interactive Revenue Mix</h2>
+          <div id="chart" class="chart" aria-label="Revenue mix chart"></div>
+          <aside class="notes">
+            This miniature chart updates when the slide becomes active.
+          </aside>
+        </section>
+
+        <!-- SPEAKER NOTES EXAMPLE -->
+        <section>
+          <h2>Q&amp;A</h2>
+          <p>Press <kbd>S</kbd> to open speaker notes.</p>
+          <aside class="notes">
+            Thank stakeholders; invite questions. Mention appendix slides if needed.
+          </aside>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- RevealJS core -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+
+    <!-- Plugins: Markdown, Highlight, Math, Notes -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+
+    <!-- (Optional) d3 for tiny chart demo -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <script src="js/visualizations.js"></script>
+    <script>
+      Reveal.initialize({
+        width: 1280,
+        height: 720,
+        margin: 0.04,
+        controls: true,
+        progress: true,
+        history: true,
+        transition: 'slide',
+        hash: true,
+        plugins: [ RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealNotes ],
+        math: {
+          // Use KaTeX via plugin defaults
+        }
+      });
+
+      // Demo: re-render small chart on slide change
+      Reveal.addEventListener('slidechanged', function (event) {
+        if (event.currentSlide && event.currentSlide.id === 'chart-slide') {
+          window.renderRevenueMix && window.renderRevenueMix();
+        }
+      });
+    </script>
+  </body>
+</html>
